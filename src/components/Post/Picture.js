@@ -1,21 +1,27 @@
 import React from 'react'
-import { View, Dimensions, StyleSheet } from 'react-native'
+import { View, Dimensions, StyleSheet, Image, Text } from 'react-native'
 
-const width = Dimensions.get('screen').width
+const Dimension = Dimensions.get('screen').width
 
-const Picture = () => {
+const Picture = props => {
 
   return (
     <View>
-      <Image source={require('../assets/post.jpg')} style={ styles.image } />
+      <Image source={{ uri: props.picturePost }} style={styles.image} />
+      <Text>{props.description}</Text>
+      <Image source={require('../../../assets/heart-disabled.png')} style={styles.like}/>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   image: {
-    height: width,
-    width: width
+    height: Dimension,
+    width: Dimension
+  },
+  like: {
+    height: 40,
+    width: 40
   }
 })
 
