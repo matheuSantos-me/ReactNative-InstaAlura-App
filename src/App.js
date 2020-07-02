@@ -1,14 +1,13 @@
 import React, {Fragment} from 'react'
+import { ScrollView, FlatList } from 'react-native'
 
-import {Text, Dimensions, ScrollView, Image, FlatList, StyleSheet } from 'react-native'
-
-const Dimension = Dimensions.get('screen').width
+import { Header, Picture } from './components'
 
 const Users = [
-  { user: 'Matheus' },
-  { user: 'Lázaro' },
-  { user: 'Sandra' },
-  { user: 'Fidelmario' },
+  { id: 1, user: 'Matheus' },
+  { id: 2, user: 'Lázaro' },
+  { id: 3, user: 'Sandra' },
+  { id: 4, user: 'Fidelmario' },
 ]
 
 const App = () => {
@@ -16,22 +15,16 @@ const App = () => {
     <ScrollView>
       <FlatList
         data={Users}
+        keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <Fragment>
-            <Text>{item.user}</Text>
-            <Image source={require('../assets/post.jpg')} style={ styles.image } />
+            <Header user={item.user} />
+            <Picture />
           </Fragment>
         }
       />
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  image: {
-    height: Dimension,
-    width: Dimension,
-  }
-})
 
 export default App
