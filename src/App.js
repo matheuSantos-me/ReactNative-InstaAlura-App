@@ -1,25 +1,30 @@
-import React, {Fragment} from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { ScrollView, FlatList } from 'react-native'
 
 import { Header, Picture } from './components'
 
-const Users = [
-  { id: 1, user: 'Matheus' },
-  { id: 2, user: 'Lázaro' },
-  { id: 3, user: 'Sandra' },
-  { id: 4, user: 'Fidelmario' },
-]
-
 const App = () => {
+  const [picture, setPicture] = useState([])
+
+  useEffect(() => {
+    const readPictures = async () => {
+      const picturesHTTP = await fetch('http://10.0.2.2:3030/feed')
+      const picturesJSON = await picturesHTTP.json()
+      setPicture(picturesJSON)
+    }
+
+    readPictures()
+  }, [])
+
   return (
     <ScrollView>
       <FlatList
-        data={Users}
+        data={picture}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <Fragment>
-            <Header user={item.user} />
-            <Picture />
+            <Header pictureUser={item.userURL} user={item.userName} />
+            <Picture picturePost={item.userURL} description={item.description} />
           </Fragment>
         }
       />

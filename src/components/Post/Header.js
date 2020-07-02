@@ -6,7 +6,7 @@ const Header = props => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/post.jpg')} style={styles.image} />
+      <Image source={{ uri: props.pictureUser }} style={styles.image} />
       <Text>{props.user}</Text>
     </View>
   )
