@@ -3,26 +3,37 @@ import { View, Dimensions, StyleSheet, Image, Text, TouchableOpacity } from 'rea
 
 const Dimension = Dimensions.get('screen').width
 
-const Picture = props => {
-  const [like, setLike] = useState(false)
+const Picture = ({ picturePost, description, qntLikes }) => {
+  const [curtiu, setCurtiu] = useState(false)
+  const [likes, setLikes] = useState(qntLikes)
 
-  const LikePicture = () => {
-    setLike(!like)
+  const curtiuFoto = () => {
+    let qnt = likes
+    if (curtiu) {
+      qnt--
+    } else {
+      qnt++
+    }
+    setLikes(qnt)
+    setCurtiu(!curtiu)
   }
 
   return (
     <View>
-      <Image source={{ uri: props.picturePost }} style={styles.image} />
-      <Text>{props.description}</Text>
-      <TouchableOpacity onPress={() => LikePicture()}>
-        <Image source={ImageLike(like)} style={styles.like} />
-      </TouchableOpacity>
+      <Image source={{ uri: picturePost }} style={styles.imagePost} />
+      <Text>{description}</Text>
+      <View style={styles.likes}>
+        <TouchableOpacity onPress={curtiuFoto}>
+          <Image source={ImageLike(curtiu)} style={styles.like} />
+        </TouchableOpacity>
+        <Text>{likes} curtidas</Text>
+      </View>
     </View>
   )
 }
 
-const ImageLike = (like) => {
-  if (like) {
+const ImageLike = (curtiu) => {
+  if (curtiu) {
     return require('../../../assets/heart-checked.png')
   } else {
     return require('../../../assets/heart-disabled.png')
@@ -30,9 +41,13 @@ const ImageLike = (like) => {
 }
 
 const styles = StyleSheet.create({
-  image: {
+  imagePost: {
     height: Dimension,
     width: Dimension
+  },
+  likes: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   like: {
     height: 40,
