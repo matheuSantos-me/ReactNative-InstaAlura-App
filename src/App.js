@@ -24,7 +24,7 @@ const App = () => {
         renderItem={({ item }) =>
           <Fragment>
             <Header pictureUser={item.userURL} user={item.userName} />
-            <Picture picturePost={item.userURL} description={item.description} />
+            <Picture picturePost={item.userURL} description={item.description} qntLikes={item.likes} />
           </Fragment>
         }
       />
