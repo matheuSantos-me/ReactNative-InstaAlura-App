@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
 import { View, Dimensions, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 
+import { ImageLike, curtiuFoto } from '../../utils/functions/likes'
+
 const Dimension = Dimensions.get('screen').width
 
 const Picture = ({ picturePost, description, qntLikes }) => {
   const [curtiu, setCurtiu] = useState(false)
   const [likes, setLikes] = useState(qntLikes)
 
-  const curtiuFoto = () => {
-    let qnt = likes
-    if (curtiu) {
-      qnt--
-    } else {
-      qnt++
-    }
+  const clicouCurtir = () => {
+    const [curtiuState, qnt] = curtiuFoto(curtiu, likes)
     setLikes(qnt)
-    setCurtiu(!curtiu)
+    setCurtiu(curtiuState)
   }
 
   return (
@@ -23,21 +20,13 @@ const Picture = ({ picturePost, description, qntLikes }) => {
       <Image source={{ uri: picturePost }} style={styles.imagePost} />
       <Text>{description}</Text>
       <View style={styles.likes}>
-        <TouchableOpacity onPress={curtiuFoto}>
+        <TouchableOpacity onPress={clicouCurtir}>
           <Image source={ImageLike(curtiu)} style={styles.like} />
         </TouchableOpacity>
         <Text>{likes} curtidas</Text>
       </View>
     </View>
   )
-}
-
-const ImageLike = (curtiu) => {
-  if (curtiu) {
-    return require('../../../assets/heart-checked.png')
-  } else {
-    return require('../../../assets/heart-disabled.png')
-  }
 }
 
 const styles = StyleSheet.create({
