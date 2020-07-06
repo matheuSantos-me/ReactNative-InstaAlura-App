@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
   },
   like: {
     height: 40,
-    width: 40
+    width: 40,
+    marginRight: 10
   }
 })
 

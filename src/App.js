@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { ScrollView, FlatList } from 'react-native'
 
-import { Header, Picture } from './components'
+import { Header, Picture, Comments } from './components'
 
 const App = () => {
   const [picture, setPicture] = useState([])
@@ -23,8 +23,9 @@ const App = () => {
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <Fragment>
-            <Header pictureUser={item.userURL} user={item.userName} />
+            <Header pictureUser={item.userURL} user={item.comentarios.text} />
             <Picture picturePost={item.userURL} description={item.description} qntLikes={item.likes} />
+            <Comments comments={item.comentarios} />
           </Fragment>
         }
       />
